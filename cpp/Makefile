@@ -1,0 +1,23 @@
+CXX=g++
+CXXFLAGS=-std=c++17 -Wall -Wextra -Wpedantic -Werror
+OBJ=dbuffer_cxx.o
+TEST=dbuffer_test.cpp
+
+ifdef DEBUG
+ifeq ($(DEBUG),valgrind)
+	CXXFLAGS+=-Og -g
+endif
+ifeq ($(DEBUG),asan)
+	CXXFLAGS+=-Og -fsanitize=address,undefined
+endif
+else
+	CXXFLAGS+=-O2
+endif
+
+all: test00
+
+test00: $(OBJ)
+	$(CXX) $(CFLAGS) $< $(TEST) -o $@
+
+clean:
+	rm -f $(OBJ) test00
