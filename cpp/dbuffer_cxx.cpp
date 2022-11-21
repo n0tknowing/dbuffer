@@ -63,3 +63,13 @@ void DBuffer::clear() noexcept {
     std::memset(m_buffer, 0, m_size);
     m_size = 0;
 }
+
+bool DBuffer::operator==(const DBuffer &other) noexcept {
+    // avoid wasted memcmp call
+    if (this == &other)
+        return true;
+    else if (m_size != other.m_size)
+        return false;
+
+    return std::memcmp(m_buffer, other.m_buffer, m_size) == 0;
+}

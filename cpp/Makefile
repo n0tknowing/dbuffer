@@ -17,7 +17,7 @@ endif
 all: test00
 
 test00: $(OBJ)
-	$(CXX) $(CFLAGS) $< $(TEST) -o $@
+	$(CXX) $(CXXFLAGS) $< $(TEST) -o $@
 
 clean:
 	rm -f $(OBJ) test00

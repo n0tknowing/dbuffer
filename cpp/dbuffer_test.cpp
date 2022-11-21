@@ -21,5 +21,19 @@ int main() {
     std::cout << ".size() " << buffer.size() << " bytes\n";
     std::cout << ".capacity() " << buffer.capacity() << " bytes\n";
 
+    {
+        DBuffer buffer2;
+
+        uint8_t *buf = new uint8_t[4096];
+        std::memset(buf, 10, 4096);
+
+        if (buffer == buffer2)
+            std::cout << "WTF???\n";
+        else
+            std::cout << "OK\n";
+
+        delete[] buf;
+    }
+
     return 0;
 }
