@@ -1,4 +1,5 @@
 #include <climits>
+#include <stdint.h>
 
 class DBuffer {
 public:
