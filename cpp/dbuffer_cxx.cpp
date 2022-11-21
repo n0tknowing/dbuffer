@@ -8,7 +8,7 @@
 DBuffer::DBuffer(size_t init_capacity) {
     m_capacity = std::min(init_capacity, MAX_CAPACITY_HARD);
     m_buffer = new uint8_t[m_capacity];
-    std::memset(m_buffer, 0, m_capacity * sizeof(uint8_t));
+    std::memset(m_buffer, 0, m_capacity);
 }
 
 DBuffer::~DBuffer() noexcept {
@@ -27,12 +27,12 @@ void DBuffer::grow(const size_t new_capacity) {
     const size_t new_cap = std::min(new_capacity, MAX_CAPACITY_HARD);
     uint8_t *new_data = new uint8_t[new_cap];
 
-    std::memset(new_data, 0, new_cap); // zeroes entire new buffer
+    std::memset(new_data, 0, new_cap); // zero out entire new buffer
     std::memcpy(new_data, m_buffer, m_size); // copy old data
 
     delete[] m_buffer; // delete old buffer after we copy it
 
-    m_buffer = new_data; // new buffer with old data + 0
+    m_buffer = new_data; // new buffer with old data + a bunch of zero
     m_capacity = new_cap;
 }
 
@@ -65,10 +65,11 @@ void DBuffer::clear() noexcept {
 }
 
 bool DBuffer::operator==(const DBuffer &other) noexcept {
-    // avoid wasted memcmp call
+    // avoid wasted memcmp call because we only compare if
+    // both addresses are unique...
     if (this == &other)
         return true;
-    else if (m_size != other.m_size)
+    else if (m_size != other.m_size) // ...and have same size
         return false;
 
     return std::memcmp(m_buffer, other.m_buffer, m_size) == 0;
