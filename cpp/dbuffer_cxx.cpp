@@ -7,8 +7,7 @@
 
 DBuffer::DBuffer(size_t init_capacity) {
     m_capacity = std::min(init_capacity, MAX_CAPACITY_HARD);
-    m_buffer = new uint8_t[m_capacity];
-    std::memset(m_buffer, 0, m_capacity);
+    m_buffer = new uint8_t[m_capacity]();
 }
 
 DBuffer::~DBuffer() noexcept {
@@ -25,11 +24,9 @@ void DBuffer::grow(const size_t new_capacity) {
         throw std::runtime_error("Out of memory");
 
     const size_t new_cap = std::min(new_capacity, MAX_CAPACITY_HARD);
-    uint8_t *new_data = new uint8_t[new_cap];
+    uint8_t *new_data = new uint8_t[new_cap]();
 
-    std::memset(new_data, 0, new_cap); // zero out entire new buffer
     std::memcpy(new_data, m_buffer, m_size); // copy old data
-
     delete[] m_buffer; // delete old buffer after we copy it
 
     m_buffer = new_data; // new buffer with old data + a bunch of zero
@@ -43,7 +40,7 @@ void DBuffer::shrink() {
     uint8_t *new_buffer = new uint8_t[m_size];
     std::memcpy(new_buffer, m_buffer, m_size); // copy old content
 
-    delete[] m_buffer; // delete
+    delete[] m_buffer;
 
     m_buffer = new_buffer;
     m_capacity = m_size;
