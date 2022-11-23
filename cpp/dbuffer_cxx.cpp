@@ -64,7 +64,7 @@ void DBuffer::clear() noexcept {
     m_size = 0;
 }
 
-bool DBuffer::operator==(const DBuffer &other) noexcept {
+[[nodiscard]] bool DBuffer::operator==(const DBuffer &other) noexcept {
     // avoid wasting memcmp call because we only compare if
     // both addresses are unique...
     if (this == &other)

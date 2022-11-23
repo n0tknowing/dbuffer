@@ -19,7 +19,7 @@ public:
     void push(const uint8_t *data, const size_t size);
     void clear() noexcept;
 
-    bool operator==(const DBuffer& other) noexcept;
+    [[nodiscard]] bool operator==(const DBuffer& other) noexcept;
 
     [[nodiscard]] size_t size() noexcept {
         return m_size;
@@ -37,7 +37,7 @@ public:
         return static_cast<const uint8_t *>(m_buffer);
     }
 
-    private:
+private:
     uint8_t *m_buffer = nullptr;
     size_t m_size = 0;
     size_t m_capacity = 0; // soft capacity limit
