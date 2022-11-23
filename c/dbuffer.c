@@ -61,7 +61,7 @@ int dbuffer_grow(struct dbuffer *dbuf, size_t new_max_sz)
 	return 0;
 }
 
-void dbuffer_shrink(struct dbuffer *dbuf)
+void dbuffer_shrink_to_fit(struct dbuffer *dbuf)
 {
 	if (dbuf == NULL)
 		return;

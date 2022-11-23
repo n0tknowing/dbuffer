@@ -33,7 +33,7 @@ void DBuffer::grow(const size_t new_capacity) {
     m_capacity = new_cap;
 }
 
-void DBuffer::shrink() {
+void DBuffer::shrink_to_fit() {
     if (m_size == 0 || m_size == m_capacity)
         return;
 
