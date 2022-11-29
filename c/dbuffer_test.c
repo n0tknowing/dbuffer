@@ -27,8 +27,8 @@ int main(void)
 		free(buf);
 	}
 
-	printf("dbuffer_size() %zu bytes\n", dbuffer_get_size(&buffer));
-	printf("dbuffer_capacity() %zu bytes\n", dbuffer_get_capacity(&buffer));
+	printf("dbuffer_size() %zu bytes\n", dbuffer_size(&buffer));
+	printf("dbuffer_capacity() %zu bytes\n", dbuffer_capacity(&buffer));
 
 	dbuffer_destroy(&buffer);
 	return 0;
