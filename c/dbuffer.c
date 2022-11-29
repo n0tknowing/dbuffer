@@ -96,12 +96,12 @@ int dbuffer_push(struct dbuffer *dbuf, const void *new_buf, size_t buf_sz)
     return 0;
 }
 
-const void *dbuffer_data(struct dbuffer *dbuf)
+void *dbuffer_data(struct dbuffer *dbuf)
 {
     if (dbuf == NULL)
         return NULL;
 
-    return (const void *)dbuf->buf_data;
+    return dbuf->buf_data;
 }
 
 size_t dbuffer_size(struct dbuffer *dbuf)
