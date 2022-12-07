@@ -78,7 +78,7 @@ void dbuffer_shrink_to_fit(struct dbuffer *dbuf)
     dbuf->buf_capacity = new_max_sz;
 }
 
-int dbuffer_push(struct dbuffer *dbuf, const void *new_buf, size_t buf_sz)
+int dbuffer_put(struct dbuffer *dbuf, const void *new_buf, size_t buf_sz)
 {
     if (dbuf == NULL || new_buf == NULL)
         return -1;
