@@ -46,7 +46,7 @@ void DBuffer::shrink_to_fit() {
     m_capacity = m_size;
 }
 
-void DBuffer::push(const uint8_t *data, const size_t size) {
+void DBuffer::put(const uint8_t *data, const size_t size) {
     const size_t needed_size = std::min(size, MAX_CAPACITY_HARD);
     const size_t diff = m_capacity - m_size; // grow or not?
     if (needed_size >= diff)

@@ -13,7 +13,7 @@ int main() {
     for (size_t i = 0; i < sizes.size(); i++) {
         uint8_t *buf = new uint8_t[sizes[i]];
         std::memset(buf, i, sizes[i]);
-        buffer.push(buf, sizes[i]);
+        buffer.put(buf, sizes[i]);
         std::cout << ".push() " << sizes[i] << " bytes success\n";
         delete[] buf;
     }

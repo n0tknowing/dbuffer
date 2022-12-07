@@ -16,7 +16,7 @@ public:
 
     void grow(const size_t new_capacity);
     void shrink_to_fit();
-    void push(const uint8_t *data, const size_t size);
+    void put(const uint8_t *data, const size_t size);
     void clear() noexcept;
 
     [[nodiscard]] bool operator==(const DBuffer& other) noexcept;
