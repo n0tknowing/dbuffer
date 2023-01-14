@@ -1,7 +1,7 @@
 CXX=g++
 CXXFLAGS=-std=c++17 -Wall -Wextra -Wpedantic -Werror
-OBJ=dbuffer_cxx.o
-TEST=dbuffer_test.cpp
+OBJ=dbuffer.o
+TEST=test.cpp
 
 ifdef DEBUG
 ifeq ($(DEBUG),valgrind)

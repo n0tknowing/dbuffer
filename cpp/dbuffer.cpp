@@ -3,18 +3,32 @@
 #include <cstring>
 #include <stdexcept>
 
-#include "dbuffer_cxx.hpp"
+#include "dbuffer.h"
 
 DBuffer::DBuffer(size_t init_capacity) {
     m_capacity = std::min(init_capacity, MAX_CAPACITY_HARD);
     m_buffer = new uint8_t[m_capacity]();
 }
 
+DBuffer::DBuffer(DBuffer&& other) {
+    if (this != &other) {
+        m_size = other.m_size;
+        m_capacity = other.m_capacity;
+        std::swap(m_buffer, other.m_buffer);
+        delete[] other.m_buffer;
+        other.m_buffer = nullptr;
+        other.m_size = 0;
+        other.m_capacity = 0;
+    }
+}
+
 DBuffer::~DBuffer() noexcept {
-    delete[] m_buffer;
-    m_buffer = nullptr;
-    m_size = 0;
-    m_capacity = 0;
+    if (m_buffer != nullptr) {
+        delete[] m_buffer;
+        m_buffer = nullptr;
+        m_size = 0;
+        m_capacity = 0;
+    }
 }
 
 void DBuffer::grow(const size_t new_capacity) {
@@ -61,7 +75,7 @@ void DBuffer::clear() noexcept {
     m_size = 0;
 }
 
-[[nodiscard]] bool DBuffer::operator==(const DBuffer &other) noexcept {
+[[nodiscard]] bool DBuffer::operator==(const DBuffer &other) const noexcept {
     // avoid wasting memcmp call because we only compare if
     // both addresses are unique...
     if (this == &other)
@@ -70,4 +84,8 @@ void DBuffer::clear() noexcept {
         return false;
 
     return std::memcmp(m_buffer, other.m_buffer, m_size) == 0;
+}
+
+[[nodiscard]] bool DBuffer::operator!=(const DBuffer &other) const noexcept {
+    return !(*this == other);
 }

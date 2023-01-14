@@ -3,7 +3,7 @@
 #include <memory>
 #include <cstring>
 
-#include "dbuffer_cxx.hpp"
+#include "dbuffer.h"
 
 int main() {
     DBuffer buffer;
@@ -18,8 +18,10 @@ int main() {
         delete[] buf;
     }
 
+    std::cout << '\n';
     std::cout << ".size() " << buffer.size() << " bytes\n";
     std::cout << ".capacity() " << buffer.capacity() << " bytes\n";
+    std::cout << '\n';
 
     {
         DBuffer buffer2;
@@ -35,5 +37,16 @@ int main() {
         delete[] buf;
     }
 
+    {
+        DBuffer buffer2 {std::move(buffer)};
+
+        std::cout << '\n';
+        std::cout << ".size() " << buffer2.size() << " bytes\n";
+        std::cout << ".capacity() " << buffer2.capacity() << " bytes\n";
+    }
+
+    std::cout << '\n';
+    std::cout << ".size() " << buffer.size() << " bytes\n";
+    std::cout << ".capacity() " << buffer.capacity() << " bytes\n";
     return 0;
 }

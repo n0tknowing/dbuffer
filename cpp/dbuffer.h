@@ -4,33 +4,27 @@
 class DBuffer {
 public:
     DBuffer(size_t m_capacity = 8192);
+    DBuffer(DBuffer&&);
     ~DBuffer() noexcept;
 
-    // Disable and never use this to prevents leak
     DBuffer(const DBuffer&) = delete;
     DBuffer& operator=(const DBuffer&) = delete;
-
-    // Disable until I understand them better
-    DBuffer(const DBuffer&&) = delete;
-    DBuffer&& operator=(const DBuffer&&) = delete;
+    DBuffer&& operator=(DBuffer&&) = delete;
 
     void grow(const size_t new_capacity);
     void shrink_to_fit();
     void put(const uint8_t *data, const size_t size);
     void clear() noexcept;
 
-    [[nodiscard]] bool operator==(const DBuffer& other) noexcept;
+    [[nodiscard]] bool operator==(const DBuffer& other) const noexcept;
+    [[nodiscard]] bool operator!=(const DBuffer& other) const noexcept;
 
-    [[nodiscard]] size_t size() noexcept {
+    [[nodiscard]] size_t size() const noexcept {
         return m_size;
     }
 
-    [[nodiscard]] size_t capacity() noexcept {
+    [[nodiscard]] size_t capacity() const noexcept {
         return m_capacity;
-    }
-
-    [[nodiscard]] uint8_t *buffer() noexcept {
-        return m_buffer;
     }
 
     [[nodiscard]] const uint8_t *buffer() const noexcept {
