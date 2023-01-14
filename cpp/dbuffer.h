@@ -5,11 +5,11 @@ class DBuffer {
 public:
     DBuffer(size_t m_capacity = 8192);
     DBuffer(DBuffer&&);
+    DBuffer& operator=(DBuffer&&);
     ~DBuffer() noexcept;
 
     DBuffer(const DBuffer&) = delete;
     DBuffer& operator=(const DBuffer&) = delete;
-    DBuffer&& operator=(DBuffer&&) = delete;
 
     void grow(const size_t new_capacity);
     void shrink_to_fit();
