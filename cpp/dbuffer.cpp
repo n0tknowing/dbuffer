@@ -44,8 +44,8 @@ DBuffer::~DBuffer() noexcept {
     }
 }
 
-void DBuffer::grow(const size_t new_capacity) {
-    if (new_capacity <= m_capacity)
+void DBuffer::resize(const size_t new_capacity) {
+    if (new_capacity == 0 || new_capacity == m_capacity)
         return;
     else if (m_capacity >= MAX_CAPACITY_HARD)
         throw std::runtime_error("Out of memory");
@@ -54,34 +54,22 @@ void DBuffer::grow(const size_t new_capacity) {
     uint8_t *new_data = new uint8_t[new_cap]();
 
     if (m_buffer != nullptr) {
-        std::memcpy(new_data, m_buffer, m_size);
+        std::memcpy(new_data, m_buffer, std::min(m_size, new_cap));
         delete[] m_buffer;
     }
+
+    if (new_cap < m_size)
+        m_size = new_cap;
 
     m_buffer = new_data;
     m_capacity = new_cap;
-}
-
-void DBuffer::shrink_to_fit() {
-    if (m_size == 0 || m_size == m_capacity)
-        return;
-
-    uint8_t *new_buffer = new uint8_t[m_size];
-
-    if (m_buffer != nullptr) {
-        std::memcpy(new_buffer, m_buffer, m_size);
-        delete[] m_buffer;
-    }
-
-    m_buffer = new_buffer;
-    m_capacity = m_size;
 }
 
 void DBuffer::put(const uint8_t *data, const size_t size) {
     const size_t needed_size = std::min(size, MAX_CAPACITY_HARD);
     const size_t diff = m_capacity - m_size;
     if (needed_size >= diff)
-        DBuffer::grow(std::max(needed_size * 2, m_capacity * 2));
+        DBuffer::resize(std::max(needed_size * 2, m_capacity * 2));
 
     std::memcpy(m_buffer, data, needed_size);
     m_size += needed_size;

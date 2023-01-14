@@ -27,6 +27,17 @@ int main(void)
         free(buf);
     }
 
+    printf("\n");
+    printf("dbuffer_size() %zu bytes\n", dbuffer_size(&buffer));
+    printf("dbuffer_capacity() %zu bytes\n", dbuffer_capacity(&buffer));
+
+    (void)dbuffer_resize(&buffer, 64);
+    printf("\n");
+    printf("dbuffer_size() %zu bytes\n", dbuffer_size(&buffer));
+    printf("dbuffer_capacity() %zu bytes\n", dbuffer_capacity(&buffer));
+
+    (void)dbuffer_resize(&buffer, 640);
+    printf("\n");
     printf("dbuffer_size() %zu bytes\n", dbuffer_size(&buffer));
     printf("dbuffer_capacity() %zu bytes\n", dbuffer_capacity(&buffer));
 

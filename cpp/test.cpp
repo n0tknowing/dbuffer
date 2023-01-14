@@ -48,5 +48,17 @@ int main() {
     std::cout << '\n';
     std::cout << ".size() " << buffer.size() << " bytes\n";
     std::cout << ".capacity() " << buffer.capacity() << " bytes\n";
+
+    buffer.resize(8);
+    std::cout << '\n';
+    std::cout << ".size() " << buffer.size() << " bytes\n";
+    std::cout << ".capacity() " << buffer.capacity() << " bytes\n";
+
+    const uint8_t buf[10] = {1,2,3,4,5,6,7,8,9,0};
+    buffer.put(buf, 10);
+    std::cout << '\n';
+    std::cout << ".size() " << buffer.size() << " bytes\n";
+    std::cout << ".capacity() " << buffer.capacity() << " bytes\n";
+
     return 0;
 }

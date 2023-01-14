@@ -1,7 +1,7 @@
 CC=gcc
 CFLAGS=-std=c99 -Wall -Wextra -Wpedantic -Werror -Wstrict-prototypes
 OBJ=dbuffer.o
-TEST=dbuffer_test.c
+TEST=test.c
 
 ifdef DEBUG
 ifeq ($(DEBUG),valgrind)

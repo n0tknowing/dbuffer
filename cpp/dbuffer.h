@@ -11,8 +11,7 @@ public:
     DBuffer(const DBuffer&) = delete;
     DBuffer& operator=(const DBuffer&) = delete;
 
-    void grow(const size_t new_capacity);
-    void shrink_to_fit();
+    void resize(const size_t new_capacity);
     void put(const uint8_t *data, const size_t size);
     void clear() noexcept;
 
