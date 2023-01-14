@@ -66,6 +66,9 @@ void DBuffer::resize(const size_t new_capacity) {
 }
 
 void DBuffer::put(const uint8_t *data, const size_t size) {
+    if (size == 0)
+        return;
+
     const size_t needed_size = std::min(size, MAX_CAPACITY_HARD);
     const size_t diff = m_capacity - m_size;
     if (needed_size >= diff)
@@ -73,6 +76,10 @@ void DBuffer::put(const uint8_t *data, const size_t size) {
 
     std::memcpy(m_buffer, data, needed_size);
     m_size += needed_size;
+}
+
+void DBuffer::put(std::initializer_list<uint8_t> list) {
+    DBuffer::put(std::data(list), list.size());
 }
 
 void DBuffer::clear() noexcept {

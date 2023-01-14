@@ -60,5 +60,15 @@ int main() {
     std::cout << ".size() " << buffer.size() << " bytes\n";
     std::cout << ".capacity() " << buffer.capacity() << " bytes\n";
 
+    {
+        DBuffer buffer2;
+        buffer2.put({1,2,3,4,5,6,7,8,9,0});
+        std::cout << '\n';
+        if (buffer == buffer2)
+            std::cout << "OK\n";
+        else
+            std::cout << "WTF???\n";
+    }
+
     return 0;
 }

@@ -1,5 +1,6 @@
 #include <climits>
-#include <stdint.h>
+#include <cstdint>
+#include <initializer_list>
 
 class DBuffer {
 public:
@@ -13,6 +14,7 @@ public:
 
     void resize(const size_t new_capacity);
     void put(const uint8_t *data, const size_t size);
+    void put(std::initializer_list<uint8_t> list);
     void clear() noexcept;
 
     [[nodiscard]] bool operator==(const DBuffer& other) const noexcept;

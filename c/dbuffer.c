@@ -56,7 +56,7 @@ int dbuffer_resize(struct dbuffer *dbuf, size_t new_max_sz)
 
     if (new_max_sz > dbuf->buf_capacity)
         memset(new_buf + dbuf->buf_capacity, 0, new_max_sz - dbuf->buf_capacity);
-    if (new_max_sz < dbuf->buf_size)
+    else if (new_max_sz < dbuf->buf_size)
         dbuf->buf_size = new_max_sz;
 
     dbuf->buf_data = new_buf;
@@ -68,6 +68,8 @@ int dbuffer_put(struct dbuffer *dbuf, const void *new_buf, size_t buf_sz)
 {
     if (dbuf == NULL || new_buf == NULL)
         return -1;
+    else if (buf_sz == 0)
+        return 0;
 
     buf_sz = DBUF_MIN(buf_sz, BUF_MAX_SZ_HARD);
     size_t diff = dbuf->buf_capacity - dbuf->buf_size;
