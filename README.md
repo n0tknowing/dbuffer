@@ -1,4 +1,4 @@
-# DBuffer - Dynamic buffer
+# DBuffer - Dynamic buffer in C and C++
 
 ### Purpose
 Mainly for manage growing buffers that put data frequently but don't have
